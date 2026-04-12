@@ -44,7 +44,7 @@ export default function App() {
 
   return (
     <Dialog open={bookingOpen} onOpenChange={setBookingOpen}>
-      <div className="min-h-screen bg-background transition-colors duration-300">
+      <div id="top" className="min-h-screen bg-background transition-colors duration-300">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="max-w-[1400px] mx-auto px-8 py-4 flex items-center justify-between">
@@ -376,7 +376,6 @@ export default function App() {
                 {[
                   "Deploy to AWS, GCP, Azure, or your private cloud",
                   "Single-tenant architecture with full data isolation",
-                  "SOC 2 Type II certified infrastructure",
                   "RBAC, audit logging, and policy enforcement",
                   "99.9% uptime SLA with dedicated support"
                 ].map((item) => (
@@ -473,7 +472,7 @@ export default function App() {
           <div className="grid md:grid-cols-4 gap-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <img src={taprootLogo} alt="Taproot" className="h-6" />
+                <img src={logoSrc} alt="Taproot" className="h-6" />
                 <span className="font-medium text-foreground">Taproot</span>
               </div>
               <p className="text-sm text-muted-foreground">
@@ -483,27 +482,26 @@ export default function App() {
             <div>
               <h4 className="font-medium mb-4 text-foreground">Platform</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">Prompt-S</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Retrieval-S</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Guard-S</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Evals-S</a></li>
+                <li><a href="#platform" className="hover:text-foreground transition-colors">Platform Overview</a></li>
+                <li><a href="#capabilities" className="hover:text-foreground transition-colors">Capabilities</a></li>
+                <li><a href="#enterprise" className="hover:text-foreground transition-colors">Enterprise</a></li>
+                <li><button type="button" onClick={() => setBookingOpen(true)} className="text-left hover:text-foreground transition-colors">Book a Demo</button></li>
               </ul>
             </div>
             <div>
               <h4 className="font-medium mb-4 text-foreground">Resources</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">Documentation</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">API Reference</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Case Studies</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Blog</a></li>
+                <li><a href="https://docs.taproot.ai" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Documentation</a></li>
+                <li><a href="https://docs.taproot.ai" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">API Reference</a></li>
+                <li><button type="button" onClick={() => setBookingOpen(true)} className="text-left hover:text-foreground transition-colors">Request a Walkthrough</button></li>
+                <li><a href="mailto:rohan@taproot-ai.com" className="hover:text-foreground transition-colors">Contact</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-medium mb-4 text-foreground">Company</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Security</a></li>
+                <li><a href="#top" className="hover:text-foreground transition-colors">About Taproot</a></li>
+                <li><a href="#enterprise" className="hover:text-foreground transition-colors">Deployment Model</a></li>
                 <li>
                   <button
                     type="button"
