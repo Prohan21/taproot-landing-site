@@ -531,7 +531,7 @@ function BookingDialog() {
       <DialogHeader className="px-6 pt-6">
         <DialogTitle>Book a Taproot demo</DialogTitle>
         <DialogDescription>
-          Connect your Calendly scheduling link by setting `VITE_CALENDLY_URL` before deployment.
+          Pick a time that works for you and we will walk through the Taproot platform.
         </DialogDescription>
       </DialogHeader>
       <div className="px-6 pb-6">
