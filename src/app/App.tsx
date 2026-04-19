@@ -19,9 +19,19 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./components/ui/dialog";
+import { SystemDiagram } from "./components/SystemDiagram";
 
 const CALENDLY_URL =
   import.meta.env.VITE_CALENDLY_URL ?? "https://calendly.com/rohan-taproot-ai/30min";
+
+function SectionDivider() {
+  return (
+    <div
+      aria-hidden
+      className="mx-auto h-px w-full max-w-[1400px] bg-gradient-to-r from-transparent via-primary/60 to-transparent"
+    />
+  );
+}
 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
@@ -46,7 +56,11 @@ export default function App() {
     <Dialog open={bookingOpen} onOpenChange={setBookingOpen}>
       <div id="top" className="min-h-screen bg-background transition-colors duration-300">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent"
+        />
         <div className="max-w-[1400px] mx-auto px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src={logoSrc} alt="Taproot" className="h-8" />
@@ -124,8 +138,10 @@ export default function App() {
         </div>
       </section>
 
+      <SectionDivider />
+
       {/* Problem */}
-      <section className="py-32 bg-muted/30">
+      <section className="py-32">
         <div className="max-w-[1400px] mx-auto px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -157,6 +173,8 @@ export default function App() {
           </motion.div>
         </div>
       </section>
+
+      <SectionDivider />
 
       {/* Differentiation */}
       <section className="py-32">
@@ -217,8 +235,10 @@ export default function App() {
         </div>
       </section>
 
+      <SectionDivider />
+
       {/* Flagship Capabilities */}
-      <section id="capabilities" className="py-32 bg-primary text-primary-foreground">
+      <section id="capabilities" className="py-32">
         <div className="max-w-[1400px] mx-auto px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -227,10 +247,10 @@ export default function App() {
             viewport={{ once: true }}
             className="mb-20"
           >
-            <h2 className="text-5xl font-bold mb-6">
+            <h2 className="text-5xl font-bold mb-6 text-foreground">
               Platform-native capabilities
             </h2>
-            <p className="text-xl opacity-90 leading-relaxed max-w-3xl">
+            <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl">
               These capabilities exist because Taproot is a unified system, not a bundle of services.
             </p>
           </motion.div>
@@ -242,11 +262,11 @@ export default function App() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="inline-block px-3 py-1 bg-primary-foreground/10 rounded-full mb-4 border border-primary-foreground/20">
+              <div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full mb-4 border border-primary/20">
                 Worker-S
               </div>
-              <h3 className="text-3xl font-bold mb-4">Virtual Worker</h3>
-              <p className="text-lg opacity-90 mb-6 leading-relaxed">
+              <h3 className="text-3xl font-bold mb-4 text-foreground">Virtual Worker</h3>
+              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                 A platform-level orchestration layer that can discover capabilities, plan work, execute steps, use tools, query retrieval, fetch prompts, and pause for approval when governance requires it.
               </p>
               <ul className="space-y-3">
@@ -257,8 +277,8 @@ export default function App() {
                   "Cross-service orchestration"
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 mt-0.5 shrink-0" />
-                    <span className="opacity-90">{item}</span>
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 shrink-0 text-primary" />
+                    <span className="text-foreground">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -270,11 +290,11 @@ export default function App() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="inline-block px-3 py-1 bg-primary-foreground/10 rounded-full mb-4 border border-primary-foreground/20">
+              <div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full mb-4 border border-primary/20">
                 Evals-S
               </div>
-              <h3 className="text-3xl font-bold mb-4">Diagnosis and Remediation</h3>
-              <p className="text-lg opacity-90 mb-6 leading-relaxed">
+              <h3 className="text-3xl font-bold mb-4 text-foreground">Diagnosis and Remediation</h3>
+              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                 When an agent fails, Taproot can investigate across prompt configuration, retrieval behavior, guardrail triggers, tool execution, and runtime telemetry to identify root cause, propose fixes, and verify remediations.
               </p>
               <ul className="space-y-3">
@@ -285,8 +305,8 @@ export default function App() {
                   "Closed-loop verification"
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 mt-0.5 shrink-0" />
-                    <span className="opacity-90">{item}</span>
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 shrink-0 text-primary" />
+                    <span className="text-foreground">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -294,6 +314,8 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      <SectionDivider />
 
       {/* Platform Overview */}
       <section id="platform" className="py-32">
@@ -356,8 +378,10 @@ export default function App() {
         </div>
       </section>
 
+      <SectionDivider />
+
       {/* Enterprise */}
-      <section id="enterprise" className="py-32 bg-muted/30">
+      <section id="enterprise" className="py-32">
         <div className="max-w-[1400px] mx-auto px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -376,6 +400,7 @@ export default function App() {
                 {[
                   "Deploy to AWS, GCP, Azure, or your private cloud",
                   "Single-tenant architecture with full data isolation",
+                  "SOC 2 Type II certified infrastructure",
                   "RBAC, audit logging, and policy enforcement",
                   "99.9% uptime SLA with dedicated support"
                 ].map((item) => (
@@ -428,97 +453,107 @@ export default function App() {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-32">
-        <div className="max-w-[1400px] mx-auto px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="bg-primary text-primary-foreground rounded-2xl p-16 text-center"
-          >
-            <h2 className="text-5xl font-bold mb-6">
-              Build production agents on unified infrastructure
-            </h2>
-            <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Join the teams building governable, diagnosable, and improvable AI agent systems on Taproot.
-            </p>
-            <div className="flex items-center justify-center gap-4">
-              <button
-                type="button"
-                onClick={() => setBookingOpen(true)}
-                className="group flex items-center gap-2 rounded-lg bg-primary-foreground px-8 py-4 text-primary transition-colors hover:bg-primary-foreground/90"
-              >
-                Book a demo
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <a
-                href={CALENDLY_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-lg border-2 border-primary-foreground/30 px-8 py-4 text-primary-foreground transition-colors hover:border-primary-foreground/50"
-              >
-                Talk to Sales
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <SectionDivider />
 
-      {/* Footer */}
-      <footer className="border-t border-border py-16">
-        <div className="max-w-[1400px] mx-auto px-8">
-          <div className="grid md:grid-cols-4 gap-12">
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <img src={logoSrc} alt="Taproot" className="h-6" />
-                <span className="font-medium text-foreground">Taproot</span>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Closed-loop AI agent infrastructure for enterprise operations.
+      {/* Final CTA and Footer — wrapped together for bottom glow */}
+      <div className="relative overflow-hidden">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 top-0 bg-gradient-to-t from-primary/20 via-primary/5 to-transparent"
+        />
+
+        {/* Final CTA */}
+        <section className="py-32 relative z-10">
+          <div className="max-w-[1400px] mx-auto px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <h2 className="text-6xl font-bold mb-6 text-foreground">
+                Build production agents on unified infrastructure
+              </h2>
+              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+                Join the teams building governable, diagnosable, and improvable AI agent systems on Taproot.
               </p>
+              <div className="flex items-center justify-center gap-4">
+                <button
+                  type="button"
+                  onClick={() => setBookingOpen(true)}
+                  className="group flex items-center gap-2 rounded-lg bg-primary px-8 py-4 text-primary-foreground font-medium transition-colors hover:bg-primary/90"
+                >
+                  Book a demo
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+                <a
+                  href="https://docs.taproot.ai"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-lg border border-border px-8 py-4 text-foreground font-medium transition-colors hover:bg-muted"
+                >
+                  Read the Architecture
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="py-16 relative z-10">
+          <div className="max-w-[1400px] mx-auto px-8">
+            <div className="grid md:grid-cols-4 gap-12">
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <img src={logoSrc} alt="Taproot" className="h-6" />
+                  <span className="font-medium text-foreground">Taproot</span>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Closed-loop AI agent infrastructure for enterprise operations.
+                </p>
+              </div>
+              <div>
+                <h4 className="font-medium mb-4 text-foreground">Platform</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li><a href="#platform" className="hover:text-foreground transition-colors">Platform Overview</a></li>
+                  <li><a href="#capabilities" className="hover:text-foreground transition-colors">Capabilities</a></li>
+                  <li><a href="#enterprise" className="hover:text-foreground transition-colors">Enterprise</a></li>
+                  <li><button type="button" onClick={() => setBookingOpen(true)} className="text-left hover:text-foreground transition-colors">Book a Demo</button></li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium mb-4 text-foreground">Resources</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li><a href="https://docs.taproot.ai" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Documentation</a></li>
+                  <li><a href="https://docs.taproot.ai" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">API Reference</a></li>
+                  <li><button type="button" onClick={() => setBookingOpen(true)} className="text-left hover:text-foreground transition-colors">Request a Walkthrough</button></li>
+                  <li><a href="mailto:rohan@taproot-ai.com" className="hover:text-foreground transition-colors">Contact</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium mb-4 text-foreground">Company</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li><a href="#top" className="hover:text-foreground transition-colors">About Taproot</a></li>
+                  <li><a href="#enterprise" className="hover:text-foreground transition-colors">Deployment Model</a></li>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => setBookingOpen(true)}
+                      className="text-left hover:text-foreground transition-colors"
+                    >
+                      Contact
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div>
-              <h4 className="font-medium mb-4 text-foreground">Platform</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#platform" className="hover:text-foreground transition-colors">Platform Overview</a></li>
-                <li><a href="#capabilities" className="hover:text-foreground transition-colors">Capabilities</a></li>
-                <li><a href="#enterprise" className="hover:text-foreground transition-colors">Enterprise</a></li>
-                <li><button type="button" onClick={() => setBookingOpen(true)} className="text-left hover:text-foreground transition-colors">Book a Demo</button></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-medium mb-4 text-foreground">Resources</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="https://docs.taproot.ai" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Documentation</a></li>
-                <li><a href="https://docs.taproot.ai" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">API Reference</a></li>
-                <li><button type="button" onClick={() => setBookingOpen(true)} className="text-left hover:text-foreground transition-colors">Request a Walkthrough</button></li>
-                <li><a href="mailto:rohan@taproot-ai.com" className="hover:text-foreground transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-medium mb-4 text-foreground">Company</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#top" className="hover:text-foreground transition-colors">About Taproot</a></li>
-                <li><a href="#enterprise" className="hover:text-foreground transition-colors">Deployment Model</a></li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => setBookingOpen(true)}
-                    className="text-left hover:text-foreground transition-colors"
-                  >
-                    Contact
-                  </button>
-                </li>
-              </ul>
+            <div className="mt-12 pt-8 border-t border-border/60 text-sm text-muted-foreground text-center">
+              © 2026 Taproot. All rights reserved.
             </div>
           </div>
-          <div className="mt-12 pt-8 border-t border-border text-sm text-muted-foreground text-center">
-            © 2026 Taproot. All rights reserved.
-          </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
       </div>
       <BookingDialog />
     </Dialog>
@@ -544,169 +579,5 @@ function BookingDialog() {
         </div>
       </div>
     </DialogContent>
-  );
-}
-
-function SystemDiagram() {
-  return (
-    <div className="relative w-full aspect-square max-w-xl mx-auto">
-      {/* Background logo watermark */}
-      <motion.div
-        className="absolute inset-0 flex items-center justify-center opacity-5"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 0.05, scale: 1 }}
-        transition={{ duration: 1, delay: 0.3 }}
-      >
-        <img src={taprootLogo} alt="" className="w-64 h-64 object-contain" />
-      </motion.div>
-
-      <svg viewBox="0 0 400 400" className="w-full h-full relative z-10">
-        {/* Connection lines - render first so they appear behind */}
-        {[
-          { angle: 0, label: "Prompt", delay: 0.5 },
-          { angle: 60, label: "Retrieve", delay: 0.6 },
-          { angle: 120, label: "Tool", delay: 0.7 },
-          { angle: 180, label: "Guard", delay: 0.8 },
-          { angle: 240, label: "Eval", delay: 0.9 },
-          { angle: 300, label: "Worker", delay: 1.0 }
-        ].map(({ angle, label, delay }) => {
-          const radian = (angle * Math.PI) / 180;
-          const centerRadius = 40;
-          const nodeRadius = 28;
-          const orbitRadius = 120;
-
-          const x1 = 200 + Math.cos(radian) * centerRadius;
-          const y1 = 200 + Math.sin(radian) * centerRadius;
-          const x2 = 200 + Math.cos(radian) * (orbitRadius - nodeRadius);
-          const y2 = 200 + Math.sin(radian) * (orbitRadius - nodeRadius);
-
-          return (
-            <motion.line
-              key={`line-${label}`}
-              x1={x1}
-              y1={y1}
-              x2={x2}
-              y2={y2}
-              stroke="#243d24"
-              strokeWidth="2"
-              opacity="0.3"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 0.6, delay }}
-            />
-          );
-        })}
-
-        {/* Feedback loop arrows */}
-        {[
-          { from: 0, to: 60 },
-          { from: 60, to: 120 },
-          { from: 120, to: 180 },
-          { from: 180, to: 240 },
-          { from: 240, to: 300 },
-          { from: 300, to: 360 }
-        ].map(({ from, to }, i) => {
-          const r1 = (from * Math.PI) / 180;
-          const r2 = (to * Math.PI) / 180;
-          const orbitRadius = 120;
-          const nodeRadius = 28;
-          const clearRadius = orbitRadius + nodeRadius + 8;
-
-          const x1 = 200 + Math.cos(r1) * clearRadius;
-          const y1 = 200 + Math.sin(r1) * clearRadius;
-          const x2 = 200 + Math.cos(r2) * clearRadius;
-          const y2 = 200 + Math.sin(r2) * clearRadius;
-
-          const midAngle = (from + to) / 2;
-          const midRadian = (midAngle * Math.PI) / 180;
-          const controlRadius = clearRadius + 20;
-          const cx = 200 + Math.cos(midRadian) * controlRadius;
-          const cy = 200 + Math.sin(midRadian) * controlRadius;
-
-          return (
-            <motion.path
-              key={`arrow-${i}`}
-              d={`M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`}
-              stroke="#4d7c4d"
-              strokeWidth="1.5"
-              fill="none"
-              opacity="0.4"
-              strokeDasharray="4 4"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1.5, delay: 1.2 + i * 0.1, repeat: Infinity, repeatDelay: 2 }}
-            />
-          );
-        })}
-
-        {/* Central hub with logo */}
-        <motion.circle
-          cx="200"
-          cy="200"
-          r="40"
-          fill="#243d24"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        />
-
-        {/* Logo in center */}
-        <motion.image
-          href={taprootLogoWhite}
-          x="175"
-          y="175"
-          width="50"
-          height="50"
-          opacity="1"
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        />
-
-        {/* Orbiting nodes */}
-        {[
-          { angle: 0, label: "Prompt", delay: 0.5 },
-          { angle: 60, label: "Retrieve", delay: 0.6 },
-          { angle: 120, label: "Tool", delay: 0.7 },
-          { angle: 180, label: "Guard", delay: 0.8 },
-          { angle: 240, label: "Eval", delay: 0.9 },
-          { angle: 300, label: "Worker", delay: 1.0 }
-        ].map(({ angle, label, delay }) => {
-          const radian = (angle * Math.PI) / 180;
-          const x = 200 + Math.cos(radian) * 120;
-          const y = 200 + Math.sin(radian) * 120;
-
-          return (
-            <g key={label}>
-              {/* Node */}
-              <motion.circle
-                cx={x}
-                cy={y}
-                r="28"
-                fill="white"
-                stroke="#243d24"
-                strokeWidth="2"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.4, delay }}
-              />
-              <motion.text
-                x={x}
-                y={y + 4}
-                textAnchor="middle"
-                fill="#243d24"
-                fontSize="11"
-                fontWeight="500"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: delay + 0.2 }}
-              >
-                {label}
-              </motion.text>
-            </g>
-          );
-        })}
-      </svg>
-    </div>
   );
 }
