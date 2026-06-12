@@ -60,17 +60,19 @@ function Hero({ onBook }: { onBook: () => void }) {
             <span className="cp-mono">/ Governed agent platform</span>
           </div>
           <h1 className="cp-hero-title">
-            Move AI agents from <em>pilots</em> to <span>governed production</span>.
+            <em>Evolve</em> AI agents from pilots to <span>governed production</span>.
           </h1>
           <p className="cp-hero-copy">
             One control plane for prompts, retrieval, tools, guardrails, evals, observability,
-            serving and orchestration — running inside your environment, with one audit trail
-            tying every runtime event to a policy and release decision.
+            serving and orchestration — running inside your environment. Every production event
+            feeds back into evals, releases and policy: a closed loop, with one audit trail
+            behind every decision.
           </p>
           <div className="cp-actions">
             <button className="cp-btn-primary" type="button" onClick={onBook}>Book a demo</button>
             <a className="cp-btn-ghost" href="#loop">See the closed loop in motion →</a>
           </div>
+          <div className="cp-mono-strong cp-anchors-label">The problem space</div>
           <div className="cp-anchors">
             {[
               ["Quality is the production killer", "32% of teams cite it as the #1 barrier to shipping agents.", "LangChain · State of AI Agents 2025"],
@@ -148,7 +150,7 @@ function HeroDiagram() {
             </g>
           ))}
           <text x="270" y="180" textAnchor="middle" fill="#8c9a92" fontFamily="var(--mono)" fontSize="9" letterSpacing="1.5">CLOSED LOOP</text>
-          <text x="270" y="198" textAnchor="middle" fill="#ecf1ee" fontFamily="var(--serif)" fontSize="22" fontStyle="italic">runtime → evidence → release</text>
+          <text x="270" y="198" textAnchor="middle" fill="#ecf1ee" fontFamily="var(--serif)" fontSize="22">runtime → evidence → release</text>
           <text x="270" y="218" textAnchor="middle" fill="#56655e" fontFamily="var(--mono)" fontSize="9" letterSpacing="1.5">ONE PLATFORM · ONE AUDIT TRAIL</text>
         </svg>
         <div className="cp-event-tail">
@@ -198,8 +200,8 @@ function Problem() {
         <div className="cp-sticky-copy">
           <div className="cp-mono-strong cp-section-label">§ 01 / The gap</div>
           <h2>The pilots work. The <em>rollouts</em> don’t.</h2>
-          <p>Every agent platform can demo a happy path. Production is a different problem: regressions you can’t reproduce, write actions nobody approved, retrieval that crosses ACL lines, and a fragmented stack where each failure has to be diagnosed in five tools.</p>
-          <p>Buyers stopped asking for “a builder.” They started asking for the <strong>system of record</strong> that makes adoption defensible.</p>
+          <p><strong>Here’s the issue with other agent platforms:</strong> every one of them can demo a happy path. Production is a different problem: regressions you can’t reproduce, write actions nobody approved, retrieval that crosses ACL lines, and a fragmented stack where each failure has to be diagnosed in five tools.</p>
+          <p>Buyers stopped asking for “a builder.” They started asking for the <strong>system of record</strong> that makes adoption defensible. Taproot is that system — plus the evals, guardrails, approvals and rollback machinery wired into one loop, so a failure found in production becomes a test, a fix and a gated release instead of a war room.</p>
         </div>
         <div>
           <div className="cp-stat-grid">
@@ -221,6 +223,10 @@ function Problem() {
                 </div>
               ))}
             </div>
+            <div className="cp-problem-row">
+              <span>✕</span>
+              <p>Eight disconnected tools: every failure gets diagnosed five times, and nobody can prove what changed.</p>
+            </div>
             <div className="cp-success-row">
               <span>✓</span>
               <p>Taproot replaces the eight-tool collage with one closed loop, in your environment.</p>
@@ -234,10 +240,11 @@ function Problem() {
 
 const loopSteps = [
   { t: "OBSERVE", title: "A regression appears in production.", sub: "Claims-triage agent · v13 · prod", detail: "Eval score on the live traffic slice drops from 0.92 → 0.78 over a 24-hour window. The agent’s tool-call success rate is fine; retrieval recall is fine; the failure is in summarization grounding." },
-  { t: "DIAGNOSE", title: "Trace it once — across every layer.", sub: "OTEL span · prompt v13 · retrieval v7 · tool policy v3", detail: "One span tree shows the prompt version, the retrieved chunks, the guardrail verdicts, the tool calls, the approval state, and the eval scoring — all stitched to the same run id." },
-  { t: "REPRODUCE", title: "Promote the failure into an eval case.", sub: "evals/claims-triage/regression-2025-w11.jsonl", detail: "One click turns the production trace into a deterministic eval case with the inputs, expected behaviour, and the policies it must satisfy. The bug is now part of CI." },
+  { t: "DIAGNOSE", title: "Trace it once — across every layer.", sub: "OTEL span · prompt v13 · retrieval v7 · tool policy v3", detail: "One OpenTelemetry (OTEL) span tree shows the prompt version, the retrieved chunks, the guardrail verdicts, the tool calls, the approval state, and the eval scoring — all stitched to the same run id." },
+  { t: "REPRODUCE", title: "Promote the failure into an eval case.", sub: "evals/claims-triage/regression-2025-w11.jsonl", detail: "One click turns the production trace into a deterministic eval case with the inputs, expected behaviour, and the policies it must satisfy. The bug is now part of your continuous integration (CI) suite." },
   { t: "REMEDIATE", title: "Try a fix in a sandbox identical to prod.", sub: "prompt v14 · retrieval v7.1 · same data, same tools", detail: "Edit the prompt or rerank policy, replay the case offline, watch the score recover, and compare side-by-side against the last three versions. No ad-hoc notebooks." },
-  { t: "PROMOTE", title: "Canary with a policy gate.", sub: "release.canary · 5% → 25% → 100% · approval: SecOps", detail: "CI gate requires the new version pass the regression suite and stay above the SLO. A canary moves traffic gradually with an automatic rollback if guardrail trips spike." },
+  { t: "PROMOTE", title: "Canary with a policy gate.", sub: "release.canary · 5% → 25% → 100% · approval: SecOps", detail: "A canary release sends the new version to a small slice of traffic first — 5%, then 25%, then 100% — and rolls back automatically if guardrail trips spike. The CI gate requires the regression suite to pass and the SLO to hold before each step." },
+  { t: "RECORD", title: "Every step lands in one audit trail.", sub: "audit ref: rel-2025w11-cl-84 · append-only", detail: "Each observe, diagnose, fix and promote action above was recorded as it happened — who did it, what changed, what evidence backed it. When an auditor asks, the answer is one query, not an archaeology project." },
 ];
 
 function LoopDemo() {
@@ -256,8 +263,8 @@ function LoopDemo() {
         <div className="cp-section-head cp-split-head">
           <div>
             <div className="cp-mono-strong cp-section-label">§ 02 / The closed loop</div>
-            <h2>Runtime evidence becomes safer production behaviour — <em>by default</em>.</h2>
-            <p>Most platforms hand you a builder, a dashboard, and a Slack channel for incidents. Taproot turns every production event into a deterministic eval, every fix into a tracked release, and every rollout into a policy decision — with one audit trail behind it.</p>
+            <h2>Runtime evidence becomes <em>safer</em> production behaviour — by default.</h2>
+            <p className="cp-lede">Most platforms hand you a builder, a dashboard, and a Slack channel for incidents. Taproot turns every production event into a deterministic eval, every fix into a tracked release, and every rollout into a policy decision — with one audit trail behind it. That’s the closed loop: production evidence flows back into testing, fixes ship as gated releases, and the system gets safer with every incident instead of riskier.</p>
           </div>
           <button className={`cp-tab ${auto ? "is-active" : ""}`} type="button" onClick={() => setAuto((value) => !value)}>{auto ? "⏸ Pause" : "▶ Auto-play"}</button>
         </div>
@@ -278,9 +285,6 @@ function LoopDemo() {
           </div>
           <div className="cp-loop-visual"><LoopVisual step={step} /></div>
         </div>
-        <div className="cp-feature-row">
-          {[["One run id", "binds prompt, retrieval, tool, guardrail and eval verdicts"], ["Trace → eval", "in one click, no notebook required"], ["CI gates", "block promotion on regression or SLO breach"], ["Audit trail", "every release ties back to evidence and a policy decision"]].map(([k, v]) => <FeatureMini key={k} title={k} body={v} />)}
-        </div>
       </div>
     </section>
   );
@@ -291,7 +295,21 @@ function LoopVisual({ step }: { step: number }) {
   if (step === 1) return <TracePanel />;
   if (step === 2) return <CodePanel title="EVAL CASE · auto-generated" code={`# evals/claims-triage/regression-2025-w11.jsonl\n{\n  "id": "trace-a91f",\n  "input": { "claim_id": "C-88142", "channel": "fnol-voice" },\n  "context_pin": { "kb_version": "claims-policies@v7" },\n  "expect": {\n    "must_cite": ["policy.section.4.2", "policy.section.4.5"],\n    "no_pii_leak": true,\n    "approvals_required": ["adjuster.lead"]\n  },\n  "fail_if": { "grounding_score": "< 0.85" },\n  "tags": ["regression", "grounding", "prompt-v13"]\n}`} footer={["added to CI", "replays deterministically", "tied to span trace-a91f"]} />;
   if (step === 3) return <RemediatePanel />;
-  return <PromotePanel />;
+  if (step === 4) return <PromotePanel />;
+  return <AuditPanel />;
+}
+
+function AuditPanel() {
+  const rows = [["14:08:21", "PROMOTE", "claims-triage v13 → v14 · canary 5%", "J. Park (SecOps)", "green"], ["14:08:14", "EVAL", "regression suite · pass · 0.94", "auto", "green"], ["14:07:52", "REMEDIATE", "prompt v14 · sandbox replay", "M. Chen", "green"], ["14:06:30", "REPRODUCE", "trace-a91f → eval case · regression-2025-w11", "auto", "green"], ["13:31:55", "OBSERVE", "grounding regression · open → rootcaused", "auto", "amber"]] as const;
+  return (
+    <div>
+      <div className="cp-mono cp-panel-label">AUDIT TRAIL · rel-2025w11-cl-84 · append-only</div>
+      <div className="cp-release-list">
+        {rows.map(([time, kind, what, who, tone]) => <div key={`${time}-${kind}`}><span>{time} · {what}</span><Pill tone={tone as Tone}>{kind} · {who}</Pill></div>)}
+      </div>
+      <div className="cp-mono cp-trace-note">↳ one query answers: what changed, who approved it, what evidence backs it.</div>
+    </div>
+  );
 }
 
 function ObservePanel() {
@@ -364,15 +382,15 @@ function FeatureMini({ title, body }: { title: string; body: string }) {
 }
 
 function Services() {
-  const services = [
-    ["FRONT-S", "Front", "agent runtime + streaming UI surfaces", "11ms p50"], ["WORKER-S", "Worker", "reusable agent work, packaged", "142 workers"], ["TOOLBOX-S", "Toolbox", "governed tool gateway · scoped tokens", "8 policies"], ["RETRIEVAL-S", "Retrieval", "ACL-aware index · evidence preserved", "4.2M docs"],
-    ["PROMPT-S", "Prompt", "versioned prompts · lineage to traces", "v14 live"], ["EVALS-S", "Evals", "online + offline · CI gates", "1,420 cases"], ["GUARDRAIL-S", "Guardrail", "PII · jailbreak · output policy", "0.6% block"], ["SDK", "SDK + APIs", "OTEL-native · framework-agnostic", "py · ts · go"],
+  const services: Array<[string, string, string, string?]> = [
+    ["FRONT-S", "Front", "agent runtime + streaming UI surfaces"], ["WORKER-S", "Worker", "reusable agent work, packaged"], ["TOOLBOX-S", "Toolbox", "governed tool gateway · scoped tokens"], ["RETRIEVAL-S", "Retrieval", "ACL-aware index · evidence preserved"],
+    ["PROMPT-S", "Prompt", "versioned prompts · lineage to traces"], ["EVALS-S", "Evals", "online + offline · CI gates"], ["GUARDRAIL-S", "Guardrail", "PII · jailbreak · output policy"], ["SDK", "SDK + APIs", "OTEL-native · framework-agnostic", "py · ts · go"],
   ];
   return (
     <section id="platform" className="cp-section">
       <div className="cp-wrap">
-        <SectionIntro index="03" label="The control plane" title={<><span>Eight services.</span> <em>One spine.</em></>} copy="The control plane isn’t a directory of features — it’s a single contract. Every service emits OTEL spans, every span resolves to a run id, every run id ties to a prompt version, a retrieval snapshot, a tool policy and an eval verdict. Composition is the whole point." />
-        <div className="cp-service-grid">{services.map(([code, name, desc, kpi]) => <div className="cp-service-card" key={code}><div className="cp-mono-strong">{code}</div><h3>{name}</h3><p>{desc}</p><span>● {kpi}</span></div>)}</div>
+        <SectionIntro index="03" label="The control plane" title={<><span>Eight services.</span><br /><em>One root.</em></>} copy="The control plane isn’t a directory of features — it’s a single root system every service grows from. Every service emits OpenTelemetry (OTEL) spans, every span resolves to a run id, every run id ties to a prompt version, a retrieval snapshot, a tool policy and an eval verdict." />
+        <div className="cp-service-grid">{services.map(([code, name, desc, kpi]) => <div className="cp-service-card" key={code}><div className="cp-mono-strong">{code}</div><h3>{name}</h3><p>{desc}</p>{kpi && <span>● {kpi}</span>}</div>)}</div>
       </div>
     </section>
   );
@@ -385,7 +403,7 @@ function WorkerLayer() {
       <div className="cp-wrap">
         <SectionIntro index="04" label="The worker layer" title={<>Build one agent. Inherit a <em>team</em> of virtual workers.</>} copy="Most platforms let you build an agent for one job. The next team builds the next agent from scratch. Investment doesn’t compound. Because Taproot governs every prompt, document, and tool an agent touches, every shipped agent becomes reusable virtual workers for the rest of the company." />
         <div className="cp-pullquote">“Your second agent ships in days. Your tenth is <span>almost free</span>.”<small>The compounding promise of Worker-S</small></div>
-        <div className="cp-story-grid">{[["01 · YOU SHIP ONE AGENT", "Claims-triage goes live.", "A normal agent build: a prompt for summarizing claims, retrieval over the policy library, a tool that looks up coverage, a guardrail for PII, an approval flow."], ["02 · TAPROOT EXTRACTS THE PARTS", "Five new specialists appear.", "A policy interpreter, claim summarizer, PII redactor, coverage lookup, and approval router — each callable on its own, with governance baked in."], ["03 · THE WHOLE COMPANY INHERITS THEM", "Underwriting, legal, ops get a head start.", "When the next team needs summarize this claim and check coverage, the Worker Orchestrator composes one from specialists you already have."]].map(([tag, title, body], index) => <div className={index === 1 ? "featured" : ""} key={tag}><div className="cp-mono-strong">{tag}</div><h3>{title}</h3><p>{body}</p></div>)}</div>
+        <div className="cp-story-grid">{[["01 · YOU SHIP ONE AGENT", "Claims-triage goes live.", "A normal agent build: a prompt for summarizing claims, retrieval over the policy library, a tool that looks up coverage, a guardrail for PII, an approval flow."], ["02 · TAPROOT EXTRACTS THE PARTS", "Five new specialists appear.", "A policy interpreter, claim summarizer, PII redactor, coverage lookup, and approval router — each callable on its own, with governance baked in."], ["03 · THE WHOLE COMPANY INHERITS THEM", "Underwriting, legal, ops get a head start.", "When the next team needs to summarize a claim and check coverage, the Worker Orchestrator composes one from specialists you already have."]].map(([tag, title, body], index) => <div className={index === 1 ? "featured" : ""} key={tag}><div className="cp-mono-strong">{tag}</div><h3>{title}</h3><p>{body}</p></div>)}</div>
         <DecompositionDiagram />
         <OrchestratorDemo />
         <div className="cp-metric-grid">{[["7", "agents shipped", "standard build cycle"], ["38", "virtual workers extracted", "avg 5.4 per agent"], ["142", "reuse events", "workers borrowed by other teams"], ["−63%", "time-to-second-agent", "vs. building from scratch"]].map(([n, l, s]) => <div key={l}><strong>{n}</strong><span>{l}</span><small>{s}</small></div>)}</div>
@@ -402,7 +420,7 @@ function DecompositionDiagram() {
       <div className="cp-decompose-grid">
         <div className="cp-agent-card"><div className="cp-mono">YOUR BUILD</div><div><span className="cp-mono-strong">AGENT</span><h3>claims-triage</h3><p>· prompts: triage, summary, route<br />· retrieval: claims-policies@v7<br />· tools: coverage, write_claim<br />· guardrails: pii + harm<br />· approvals: adjuster.lead</p><small>BUILD COST <strong>~6 weeks</strong></small></div></div>
         <div className="cp-worker-arrow"><svg viewBox="0 0 80 460" preserveAspectRatio="none">{[88, 168, 248, 328, 408].map((y, index) => <path key={y} d={`M 0 230 Q 40 230 80 ${y}`} stroke="rgba(45,212,168,0.5)" strokeWidth="1" fill="none" strokeDasharray="4 4" className="cp-flow" style={{ animationDelay: `${index * 0.15}s` }} />)}</svg><span>Worker-S extracts</span></div>
-        <div className="cp-worker-list"><div className="cp-mono">VIRTUAL WORKERS · NOW AVAILABLE TO EVERY TEAM</div>{workers.map(([name, use, who]) => <div key={name}><i /><strong>{name}</strong><span>{use}</span><em>↗ {who}</em></div>)}<footer><span className="cp-mono">5 specialists · same governance · zero extra build</span><span className="cp-mono">each callable as a worker, an MCP tool, or a sub-agent</span></footer></div>
+        <div className="cp-worker-list"><div className="cp-mono">VIRTUAL WORKERS · NOW AVAILABLE TO EVERY TEAM</div>{workers.map(([name, use, who]) => <div key={name}><i /><strong>{name}</strong><span>{use}</span><em>↗ {who}</em></div>)}<div className="cp-worker-cost">BUILD COST · 5 SPECIALISTS <strong>0 — inherited</strong></div><footer><span className="cp-mono">same governance · zero extra build</span><span className="cp-mono">each callable as a worker, an MCP tool, or a sub-agent</span></footer></div>
       </div>
     </div>
   );
@@ -458,28 +476,28 @@ function SDKInterop() {
     rest: `POST /v1/agents/claims-triage/runs\nAuthorization: Bearer $TAPROOT_TOKEN\nIdempotency-Key: claim-C-88142\n\n{\n  "input":  { "claim_id": "C-88142" },\n  "policy": "policy/claims-triage.tap@v3",\n  "trace":  { "parent": "otel:trace:9a4f-c021" }\n}\n\n→ 202 Accepted { "run_id": "run-a91f" }`,
   };
   const [tab, setTab] = useState<keyof typeof samples>("python");
-  return <section className="cp-section cp-section-alt"><div className="cp-wrap cp-two-col"><div><div className="cp-mono-strong cp-section-label">§ 08 / SDK + interoperability</div><h2>Neutral by design. <em>Yours by default.</em></h2><p>OTEL-native traces. Model and provider neutral. Bring your own framework — LangGraph, CrewAI, your own — and Taproot is the spine underneath: the policy, the evidence, the release.</p><div className="cp-cap-grid">{[["OTEL spans", "export to Datadog, Honeycomb, Splunk"], ["Any model", "OpenAI, Anthropic, Bedrock, Vertex"], ["Any framework", "wrap LangGraph or CrewAI runtimes"], ["Any vector DB", "Pinecone, Weaviate, pgvector"]].map(([k, v]) => <FeatureMini key={k} title={k} body={v} />)}</div></div><div className="cp-code-tabs"><header>{(Object.keys(samples) as Array<keyof typeof samples>).map((key) => <button className={`cp-tab ${tab === key ? "is-active" : ""}`} type="button" key={key} onClick={() => setTab(key)}>{key}</button>)}<span className="cp-mono">v1.4 · stable</span></header><pre className="cp-code"><code>{samples[tab]}</code></pre></div></div></section>;
+  return <section className="cp-section cp-section-alt"><div className="cp-wrap cp-two-col"><div><div className="cp-mono-strong cp-section-label">§ 08 / SDK + interoperability</div><h2>Neutral by design. <em>Yours by default.</em></h2><p>OTEL-native traces. Model and provider neutral. Bring your own framework — LangGraph, CrewAI, your own — and Taproot is the root underneath: the policy, the evidence, the release.</p><div className="cp-cap-grid">{[["OTEL spans", "export to Datadog, Honeycomb, Splunk"], ["Any model", "OpenAI, Anthropic, Bedrock, Vertex"], ["Any framework", "wrap LangGraph or CrewAI runtimes"], ["Any vector DB", "Pinecone, Weaviate, pgvector"]].map(([k, v]) => <FeatureMini key={k} title={k} body={v} />)}</div></div><div className="cp-code-tabs"><header>{(Object.keys(samples) as Array<keyof typeof samples>).map((key) => <button className={`cp-tab ${tab === key ? "is-active" : ""}`} type="button" key={key} onClick={() => setTab(key)}>{key}</button>)}<span className="cp-mono">v1.4 · stable</span></header><pre className="cp-code"><code>{samples[tab]}</code></pre></div></div></section>;
 }
 
 function Deploy() {
   const cols = ["Full feature set", "Managed updates", "Customer-managed keys", "Data residency lock", "Marketplace billing"];
   const rows = [["Taproot Cloud", "multi-tenant SaaS", "✓", "✓", "—", "—", "✓"], ["Single-tenant", "isolated SaaS", "✓", "✓", "✓", "—", "✓"], ["BYOC", "in your cloud account", "✓", "✓", "✓", "✓", "✓"], ["On-prem", "k8s · OpenShift", "✓", "✓", "✓", "✓", "partial"], ["Air-gapped", "no egress", "✓", "—", "✓", "✓", "partial"]];
-  return <section id="deploy" className="cp-section"><div className="cp-wrap"><div className="cp-section-head"><div className="cp-mono-strong cp-section-label">§ 09 / Customer-controlled deployment</div><h2>The deal-maker isn’t a feature. It’s <em>where the agent runs.</em></h2><p>Regulated buyers don’t want a tour of someone else’s VPC. Taproot ships in five postures with the same control plane in every one — same SDK, same policy language, same audit chain.</p></div><div className="cp-matrix"><div className="cp-matrix-head"><span>Posture</span>{cols.map((col) => <span key={col}>{col}</span>)}</div>{rows.map((row) => <div className="cp-matrix-row" key={row[0]}><span><strong>{row[0]}</strong><small>{row[1]}</small></span>{row.slice(2).map((value, index) => <em className={value === "✓" ? "yes" : value === "—" ? "no" : "partial"} key={`${row[0]}-${index}`}>{value}</em>)}</div>)}</div><div className="cp-badge-grid">{[["SOC 2 Type II", "in flight"], ["ISO 27001", "targeted Q3"], ["HIPAA-ready", "BYOC + on-prem"], ["FedRAMP Mod", "roadmap"]].map(([k, v]) => <div key={k}><div className="cp-mono-strong">{k}</div><p>{v}</p></div>)}</div></div></section>;
+  return <section id="deploy" className="cp-section"><div className="cp-wrap"><div className="cp-section-head"><div className="cp-mono-strong cp-section-label">§ 09 / Customer-controlled deployment</div><h2>Enterprise deals aren’t won by features. They’re won by <em>where the agent runs.</em></h2><p>Taproot ships in five postures with the same control plane in every one — same SDK, same policy language, same audit chain.</p></div><div className="cp-matrix"><div className="cp-matrix-head"><span>Posture</span>{cols.map((col) => <span key={col}>{col}</span>)}</div>{rows.map((row) => <div className="cp-matrix-row" key={row[0]}><span><strong>{row[0]}</strong><small>{row[1]}</small></span>{row.slice(2).map((value, index) => <em className={value === "✓" ? "yes" : value === "—" ? "no" : "partial"} key={`${row[0]}-${index}`}>{value}</em>)}</div>)}</div><div className="cp-badge-grid">{[["SOC 2 Type II", "in flight"], ["ISO 27001", "targeted Q3"], ["HIPAA-ready", "BYOC + on-prem"], ["FedRAMP Mod", "roadmap"]].map(([k, v]) => <div key={k}><div className="cp-mono-strong">{k}</div><p>{v}</p></div>)}</div></div></section>;
 }
 
 function VerticalWedge() {
   const tabs = [
     { key: "banking", label: "Banking + Insurance", headline: "Where governed agents pay back fastest.", stat: "$35B → $97B", statSub: "AI investment in financial services, 2023 → 2027 · WEF", copy: "Language-heavy, data-rich, tightly governed. The exact ground where a closed loop beats a builder.", flows: [["Claims FNOL triage", "voice + docs → triage → adjuster handoff"], ["Underwriting copilot", "risk research with policy citations"], ["Compliance research", "reg lookups with provenance + sign-off"], ["KYC / AML drafting", "investigative narratives with audit chain"]] },
     { key: "health", label: "Healthcare payer + provider", headline: "Administrative agents, deployed privately.", stat: "2.2×", statSub: "healthcare AI deploys faster than the broader economy · Menlo 2025", copy: "Where private deployment, ACL-aware retrieval, and packaged workflows beat a generic platform pitch.", flows: [["Prior auth drafting", "evidence-cited requests, signed by clinician"], ["Claims appeal", "auto-assemble appeals from records + policy"], ["Care-mgmt outreach", "guardrailed scripts, approvals on outbound"], ["Coding assist", "CDI suggestions with cite-back to chart"]] },
-    { key: "critical", label: "Critical infrastructure + Gov", headline: "For environments where audit > velocity.", stat: "94%", statSub: "of utility CIOs increasing AI investment in 2025 · Gartner", copy: "Air-gapped or sovereign-cloud. Strong egress, dual-control on actions, full provenance.", flows: [["Procurement Q&A", "cite-backed answers across thousands of pages"], ["Incident response", "runbook agent with mandatory approvals"], ["Field-tech assist", "retrieval-grounded SOPs, offline-capable"], ["Regulatory drafting", "with provenance and dual-sign-off"]] },
+    { key: "critical", label: "Critical infrastructure + Gov", headline: "For environments where audit is key.", stat: "94%", statSub: "of utility CIOs increasing AI investment in 2025 · Gartner", copy: "Air-gapped or sovereign-cloud. Strong egress, dual-control on actions, full provenance.", flows: [["Procurement Q&A", "cite-backed answers across thousands of pages"], ["Incident response", "runbook agent with mandatory approvals"], ["Field-tech assist", "retrieval-grounded SOPs, offline-capable"], ["Regulatory drafting", "with provenance and dual-sign-off"]] },
   ] as const;
   const [active, setActive] = useState<(typeof tabs)[number]["key"]>("banking");
   const current = tabs.find((tab) => tab.key === active) ?? tabs[0];
-  return <section id="verticals" className="cp-section cp-section-alt"><div className="cp-wrap"><div className="cp-section-head"><div className="cp-mono-strong cp-section-label">§ 10 / Where it lands first</div><h2>One platform. Three opinionated <em>workflow packs.</em></h2><p>Each pack is the platform plus the right reference agents, policy bundles, eval suites, and tool packs to put one workflow into governed production in weeks.</p></div><div className="cp-tabs">{tabs.map((tab) => <button className={`cp-tab ${active === tab.key ? "is-active" : ""}`} type="button" key={tab.key} onClick={() => setActive(tab.key)}>{tab.label}</button>)}</div><div className="cp-vertical-panel"><div><h3>{current.headline}</h3><p>{current.copy}</p><strong>{current.stat}</strong><span className="cp-mono">{current.statSub}</span></div><div>{current.flows.map(([k, v], index) => <div className="cp-flow-row" key={k}><span>{String(index + 1).padStart(2, "0")}</span><strong>{k}</strong><p>{v}</p><em>→</em></div>)}</div></div></div></section>;
+  return <section id="verticals" className="cp-section cp-section-alt"><div className="cp-wrap"><div className="cp-section-head"><div className="cp-mono-strong cp-section-label">§ 10 / Where it lands first</div><h2>One platform.<br />Three opinionated <em>workflow packs.</em></h2><p>Each pack is the platform plus the right reference agents, policy bundles, eval suites, and tool packs to put one workflow into governed production in weeks.</p></div><div className="cp-tabs">{tabs.map((tab) => <button className={`cp-tab ${active === tab.key ? "is-active" : ""}`} type="button" key={tab.key} onClick={() => setActive(tab.key)}>{tab.label}</button>)}</div><div className="cp-vertical-panel"><div><h3>{current.headline}</h3><p>{current.copy}</p><strong>{current.stat}</strong><span className="cp-mono">{current.statSub}</span></div><div>{current.flows.map(([k, v], index) => <div className="cp-flow-row" key={k}><span>{String(index + 1).padStart(2, "0")}</span><strong>{k}</strong><p>{v}</p><em>→</em></div>)}</div></div></div></section>;
 }
 
 function IDPModel() {
-  return <section className="cp-section"><div className="cp-wrap cp-narrow"><div className="cp-mono-strong cp-section-label">§ 11 / Mental model</div><h2>Think of Taproot as the <em>internal developer platform</em> for agents.</h2><p>Cloud-native infra got serious when platform engineering stopped shipping every team a different YAML and started shipping one paved road. The agent stack is in the same place — too many tools, not enough policy, no shared definition of “production-ready.” Taproot is that paved road.</p><div className="cp-compare"><CompareCard bad title="WITHOUT A CONTROL PLANE" items={["Each team picks its own builder + tracer + eval", "Guardrails bolted on, with no link to releases", "Failures debugged by manually correlating five tools", "Compliance evidence assembled in spreadsheets", "Production means a Slack channel and hope"]} /><span>→</span><CompareCard title="WITH TAPROOT" items={["One paved road across teams, opinionated where it matters", "Guardrails, evals, policy and releases share one model", "One trace explains one failure across every layer", "Evidence is pre-mapped to SOC 2, ISO 42001, NIST AI RMF", "Production means a canary, an SLO and a rollback"]} /></div></div></section>;
+  return <section className="cp-section"><div className="cp-wrap cp-narrow"><div className="cp-mono-strong cp-section-label">§ 11 / Mental model</div><h2>Think of Taproot as the <em>internal developer platform</em> for agents.</h2><p>The agent stack today is where cloud infra used to be — too many tools, not enough policy, no shared definition of “production-ready.” Cloud-native infra got serious when platform engineering started shipping one paved road instead of a different YAML per team. Taproot is that paved road for agents.</p><div className="cp-compare"><CompareCard bad title="WITHOUT A CONTROL PLANE" items={["Each team picks its own builder + tracer + eval", "Guardrails bolted on, with no link to releases", "Failures debugged by manually correlating five tools", "Compliance evidence assembled in spreadsheets", "Production means a Slack channel and hope"]} /><span>→</span><CompareCard title="WITH TAPROOT" items={["One paved road across teams, opinionated where it matters", "Guardrails, evals, policy and releases share one model", "One trace explains one failure across every layer", "Evidence is pre-mapped to SOC 2, ISO 42001, NIST AI RMF", "Production means a canary, an SLO and a rollback"]} /></div></div></section>;
 }
 
 function CompareCard({ title, items, bad = false }: { title: string; items: string[]; bad?: boolean }) {
